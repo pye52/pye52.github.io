@@ -64,10 +64,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-多布局的聊天页面开发" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/11/20/hello-world/" class="article-date">
-  <time datetime="2020-11-20T08:06:50.931Z" itemprop="datePublished">2020-11-20</time>
+    <a href="/2017/09/09/%E5%A4%9A%E5%B8%83%E5%B1%80%E7%9A%84%E8%81%8A%E5%A4%A9%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91/" class="article-date">
+  <time datetime="2017-09-09T08:38:23.000Z" itemprop="datePublished">2017-09-09</time>
 </a>
     
   </div>
@@ -78,7 +78,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/11/20/hello-world/">Hello World</a>
+      <a class="article-title" href="/2017/09/09/%E5%A4%9A%E5%B8%83%E5%B1%80%E7%9A%84%E8%81%8A%E5%A4%A9%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91/">多布局的聊天页面开发</a>
     </h1>
   
 
@@ -86,26 +86,195 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+        <p>MultiType是一个很好的多类型列表视图库，它在实现一些复杂的recyclerview列表时非常方便，而作者所举的例子也确实适合大部分场景，但看过timemachine的源码后，我认为multitype仍然不太适合聊天应用的列表布局，毕竟timemachine聊天布局的adapter也只是用int值来区分布局类型。</p>
+<p>主要原因在于multitype是通过类型与布局绑定，而在聊天应用列表里，一般都只有一个message类型，我们需要通过两种标识，来区分左右布局以及内容布局，而adapter的viewtype就是个int值。当然也可以在开发之初就定义好信息内容的子类型，但这样就变成项目必须去“适应”第三方库了，对于任何一个开发者来说这都是不好的习惯。不过multitype提出了一个很好的布局实现思路，参考<a target="_blank" rel="noopener" href="http://drakeet.me/multitype/#%E6%9B%B4%E5%A4%9A%E7%A4%BA%E4%BE%8B">仿造微博的数据结构和二级ItemViewBinder</a>。</p>
+        
+          <p class="article-more-link">
+            <a href="/2017/09/09/%E5%A4%9A%E5%B8%83%E5%B1%80%E7%9A%84%E8%81%8A%E5%A4%A9%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2017/09/09/%E5%A4%9A%E5%B8%83%E5%B1%80%E7%9A%84%E8%81%8A%E5%A4%A9%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91/" data-id="ckhq06qty000407oj0ram2t3x" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/adapter/" rel="tag">adapter</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recyclerview/" rel="tag">recyclerview</a></li></ul>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+    </footer>
+  </div>
+  
+</article>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+  
+    <article id="post-转换bks证书" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/31/%E8%BD%AC%E6%8D%A2bks%E8%AF%81%E4%B9%A6/" class="article-date">
+  <time datetime="2017-08-31T12:10:20.000Z" itemprop="datePublished">2017-08-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/31/%E8%BD%AC%E6%8D%A2bks%E8%AF%81%E4%B9%A6/">转换bks证书</a>
+    </h1>
+  
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="crt转换bks证书"><a href="#crt转换bks证书" class="headerlink" title="crt转换bks证书"></a>crt转换bks证书</h2><p>下载<a target="_blank" rel="noopener" href="http://www.bouncycastle.org/latest_releases.html">bcprov</a>，放至java/jre/lib/ext。</p>
+<p>执行以下命令：(D:\server.crt为证书地址，D:\server.bks为证书生成地址)</p>
+<p>keytool -import -alias serverkey -file D:\server.crt -keystore D:\server.bks -storetype BKS -provider org.bouncycastle.jce.provider.BouncyCastleProvider</p>
+<h2 id="pem转换bks证书"><a href="#pem转换bks证书" class="headerlink" title="pem转换bks证书"></a>pem转换bks证书</h2><p>命令行执行：(D:\server.pem为证书地址，D:\server.bks为证书生成地址)</p>
+<p>keytool -importcert -v -trustcacerts -file D:\server.pem -alias ca -keystore D:\server.bks -storetype BKS -provider org.bouncycastle.jce.provider.BouncyCastleProvider  </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/11/20/hello-world/" data-id="ckhpzcvi80000zmr4civx9qlq" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2017/08/31/%E8%BD%AC%E6%8D%A2bks%E8%AF%81%E4%B9%A6/" data-id="ckhq06qtz000507oj9lvi41so" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cert/" rel="tag">cert</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-SSL证书版本问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/01/21/SSL%E8%AF%81%E4%B9%A6%E7%89%88%E6%9C%AC%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2017-01-21T16:37:45.000Z" itemprop="datePublished">2017-01-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/21/SSL%E8%AF%81%E4%B9%A6%E7%89%88%E6%9C%AC%E9%97%AE%E9%A2%98/">SSL证书版本问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当使用SSL和服务器建立远程连接时，若采用的证书版本不对，则可能会报错</p>
+<p>报错内容如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java.io.IOException: Wrong version of key store.</span><br><span class="line">com.android.org.bouncycastle.jce.provider.JDKKeyStore.engineLoad(JDKKeyStore.java:<span class="number">812</span>)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2017/01/21/SSL%E8%AF%81%E4%B9%A6%E7%89%88%E6%9C%AC%E9%97%AE%E9%A2%98/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2017/01/21/SSL%E8%AF%81%E4%B9%A6%E7%89%88%E6%9C%AC%E9%97%AE%E9%A2%98/" data-id="ckhq06qtu000107oj9q5m5c6o" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSL/" rel="tag">SSL</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-webview上传文件的坑" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/07/webview%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E7%9A%84%E5%9D%91/" class="article-date">
+  <time datetime="2016-12-07T18:07:41.000Z" itemprop="datePublished">2016-12-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/07/webview%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E7%9A%84%E5%9D%91/">webview上传文件的坑</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>WebView是现阶段混合开发必不可少的组件，但由于google几乎每个版本都在修改其内核，导致有很多坑要踩。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/12/07/webview%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E7%9A%84%E5%9D%91/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2016/12/07/webview%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E7%9A%84%E5%9D%91/" data-id="ckhq06qty000307ojgia5dz2g" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webview/" rel="tag">Webview</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-GitHub-Pages-Hexo-搭建博客" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/18/GitHub-Pages-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" class="article-date">
+  <time datetime="2016-10-18T20:13:19.000Z" itemprop="datePublished">2016-10-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/18/GitHub-Pages-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">GitHub Pages + Hexo 搭建博客</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一直想自己搭建一个Blog，刚好前几天接触到hexo，对其方便及强大的功能感到惊叹，简单几步就能搭建出一个简洁漂亮的空间，而且文档非常完善，主题也很多，完全满足要求。即便如此，在搭建过程中也遇到了一些问题，故写一个教程。<br><strong>注意下面命令里的”$”都不用自己输入</strong><br><strong>下文提到的运行cmd，意思都是在blog文件夹里右键git base here，或者cmd之后cd到blog文件夹内</strong></p>
+        
+          <p class="article-more-link">
+            <a href="/2016/10/18/GitHub-Pages-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2016/10/18/GitHub-Pages-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" data-id="ckhq06qtp000007ojcjvh7xxx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Blog/" rel="tag">Blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GitHub/" rel="tag">GitHub</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GitHub-Pages/" rel="tag">GitHub Pages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li></ul>
+
     </footer>
   </div>
   
@@ -123,15 +292,29 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/" rel="tag">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/" rel="tag">GitHub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Pages/" rel="tag">GitHub Pages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL/" rel="tag">SSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webview/" rel="tag">Webview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/adapter/" rel="tag">adapter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cert/" rel="tag">cert</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recyclerview/" rel="tag">recyclerview</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/GitHub-Pages/" style="font-size: 10px;">GitHub Pages</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/SSL/" style="font-size: 10px;">SSL</a> <a href="/tags/Webview/" style="font-size: 10px;">Webview</a> <a href="/tags/adapter/" style="font-size: 10px;">adapter</a> <a href="/tags/cert/" style="font-size: 10px;">cert</a> <a href="/tags/recyclerview/" style="font-size: 10px;">recyclerview</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li></ul>
     </div>
   </div>
 
@@ -144,7 +327,23 @@
       <ul>
         
           <li>
-            <a href="/2020/11/20/hello-world/">Hello World</a>
+            <a href="/2017/09/09/%E5%A4%9A%E5%B8%83%E5%B1%80%E7%9A%84%E8%81%8A%E5%A4%A9%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91/">多布局的聊天页面开发</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/31/%E8%BD%AC%E6%8D%A2bks%E8%AF%81%E4%B9%A6/">转换bks证书</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/21/SSL%E8%AF%81%E4%B9%A6%E7%89%88%E6%9C%AC%E9%97%AE%E9%A2%98/">SSL证书版本问题</a>
+          </li>
+        
+          <li>
+            <a href="/2016/12/07/webview%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E7%9A%84%E5%9D%91/">webview上传文件的坑</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/18/GitHub-Pages-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">GitHub Pages + Hexo 搭建博客</a>
           </li>
         
       </ul>
