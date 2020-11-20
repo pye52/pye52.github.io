@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-Hans">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -17,24 +17,30 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"pye52.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="MultiType是一个很好的多类型列表视图库，它在实现一些复杂的recyclerview列表时非常方便，而作者所举的例子也确实适合大部分场景，但看过timemachine的源码后，我认为multitype仍然不太适合聊天应用的列表布局，毕竟timemachine聊天布局的adapter也只是用int值来区分布局类型。 主要原因在于multitype是通过类型与布局绑定，而在聊天应用列表里，一般都">
 <meta property="og:type" content="article">
 <meta property="og:title" content="多布局的聊天页面开发">
-<meta property="og:url" content="http://example.com/2017/09/09/%E5%A4%9A%E5%B8%83%E5%B1%80%E7%9A%84%E8%81%8A%E5%A4%A9%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91/index.html">
-<meta property="og:site_name" content="Kanade">
+<meta property="og:url" content="https://pye52.github.io/2017/09/09/%E5%A4%9A%E5%B8%83%E5%B1%80%E7%9A%84%E8%81%8A%E5%A4%A9%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91/index.html">
+<meta property="og:site_name">
 <meta property="og:description" content="MultiType是一个很好的多类型列表视图库，它在实现一些复杂的recyclerview列表时非常方便，而作者所举的例子也确实适合大部分场景，但看过timemachine的源码后，我认为multitype仍然不太适合聊天应用的列表布局，毕竟timemachine聊天布局的adapter也只是用int值来区分布局类型。 主要原因在于multitype是通过类型与布局绑定，而在聊天应用列表里，一般都">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2017-09-09T08:38:23.000Z">
-<meta property="article:modified_time" content="2020-11-20T09:19:32.361Z">
+<meta property="og:locale">
+<meta property="og:image" content="https://pye52.github.io/2017/09/09/%E5%A4%9A%E5%B8%83%E5%B1%80%E7%9A%84%E8%81%8A%E5%A4%A9%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91/receive.png">
+<meta property="og:image" content="https://pye52.github.io/2017/09/09/%E5%A4%9A%E5%B8%83%E5%B1%80%E7%9A%84%E8%81%8A%E5%A4%A9%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91/send.png">
+<meta property="og:image" content="https://pye52.github.io/2017/09/09/%E5%A4%9A%E5%B8%83%E5%B1%80%E7%9A%84%E8%81%8A%E5%A4%A9%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91/other1.png">
+<meta property="og:image" content="https://pye52.github.io/2017/09/09/%E5%A4%9A%E5%B8%83%E5%B1%80%E7%9A%84%E8%81%8A%E5%A4%A9%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91/other2.png">
+<meta property="og:image" content="https://pye52.github.io/2017/09/09/%E5%A4%9A%E5%B8%83%E5%B1%80%E7%9A%84%E8%81%8A%E5%A4%A9%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91/nestviewholder.png">
+<meta property="article:published_time" content="2017-09-09T00:38:23.000Z">
+<meta property="article:modified_time" content="2020-11-20T10:11:16.177Z">
 <meta property="article:author" content="pye52">
 <meta property="article:tag" content="recyclerview">
 <meta property="article:tag" content="adapter">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pye52.github.io/2017/09/09/%E5%A4%9A%E5%B8%83%E5%B1%80%E7%9A%84%E8%81%8A%E5%A4%A9%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91/receive.png">
 
-<link rel="canonical" href="http://example.com/2017/09/09/%E5%A4%9A%E5%B8%83%E5%B1%80%E7%9A%84%E8%81%8A%E5%A4%A9%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91/">
+<link rel="canonical" href="https://pye52.github.io/2017/09/09/%E5%A4%9A%E5%B8%83%E5%B1%80%E7%9A%84%E8%81%8A%E5%A4%A9%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91/">
 
 
 <script id="page-configurations">
@@ -43,11 +49,11 @@
     sidebar: "",
     isHome : false,
     isPost : true,
-    lang   : 'zh-cn'
+    lang   : 'zh-Hans'
   };
 </script>
 
-  <title>多布局的聊天页面开发 | Kanade</title>
+  <title>多布局的聊天页面开发 | </title>
   
 
 
@@ -98,7 +104,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Kanade</h1>
+      <h1 class="site-title"></h1>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -151,8 +157,8 @@
     
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/09/09/%E5%A4%9A%E5%B8%83%E5%B1%80%E7%9A%84%E8%81%8A%E5%A4%A9%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://pye52.github.io/2017/09/09/%E5%A4%9A%E5%B8%83%E5%B1%80%E7%9A%84%E8%81%8A%E5%A4%A9%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -161,7 +167,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kanade">
+      <meta itemprop="name" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -175,14 +181,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2017-09-09 08:38:23" itemprop="dateCreated datePublished" datetime="2017-09-09T08:38:23+00:00">2017-09-09</time>
+              <time title="Created: 2017-09-09 08:38:23" itemprop="dateCreated datePublished" datetime="2017-09-09T08:38:23+08:00">2017-09-09</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-20 09:19:32" itemprop="dateModified" datetime="2020-11-20T09:19:32+00:00">2020-11-20</time>
+                <time title="Modified: 2020-11-20 18:11:16" itemprop="dateModified" datetime="2020-11-20T18:11:16+08:00">2020-11-20</time>
               </span>
 
           
@@ -202,13 +208,13 @@
 
 <p>这里插入介绍一下baserecyclerview(下称brvah)的multi布局，brvah是对adapter的一个封装，因此仍然是通过int值来区分每一个布局，但没办法和multitype搭配一起使用，这样每一个布局xml都需要携带所有要显示的控件，而部分控件冗余，给修改和扩展都带来不便，而且存在大量不同的布局，在同一屏幕上显示有限，实际viewholder是无法被有效缓存的(真机测试中也会发现onCreateViewHolder是会不断被调用)。</p>
 <p>那么为什么不能将两种方式结合起来呢？先来分析一般情况下聊天界面的布局：</p>
- 
+ <img src="/2017/09/09/%E5%A4%9A%E5%B8%83%E5%B1%80%E7%9A%84%E8%81%8A%E5%A4%A9%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91/receive.png" class="" title="接收的信息布局">
 
+<img src="/2017/09/09/%E5%A4%9A%E5%B8%83%E5%B1%80%E7%9A%84%E8%81%8A%E5%A4%A9%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91/send.png" class="" title="发送的信息布局">
 
+<img src="/2017/09/09/%E5%A4%9A%E5%B8%83%E5%B1%80%E7%9A%84%E8%81%8A%E5%A4%A9%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91/other1.png" class="" title="其余布局1">
 
-
-
-
+<img src="/2017/09/09/%E5%A4%9A%E5%B8%83%E5%B1%80%E7%9A%84%E8%81%8A%E5%A4%A9%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91/other2.png" class="" title="其余布局2">
 
 <p>如上，无论是发送出去的消息还是接收的消息，基本可以划分为：头像、名字、内容区。每一条消息的头像和名字(微信发送者是没有名字的)是固定的。至于采取发送的还是接收的信息布局，取决于消息体的发送者id是否与登录用户id一致(在getItemViewType作判断)，而内容区则根据消息的类型变化。由于用户发送的信息(向左布局)还需要携带发送状态，因此只要实现一左一右的两个固定外层布局即可(xml示例参考上面给出的multitype链接)。</p>
 <p>对于内容区(以下将内容区的view称为itemview，即framelayout所添加的布局)，若不考虑缓存的话，简单利用工厂模式，在onBindViewHolder的时候根据消息体类型去生成对应的itemview并添加到framelayout上即可，如此其性能表现已经比为每一种viewtype创建一个布局要好得多了，而且对头像等固定要素只需要在onBindViewHolder处设置一遍。</p>
@@ -224,7 +230,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onViewRecycled</span><span class="params">(BaseViewHolder holder)</span> </span>&#123;</span><br><span class="line">    cache.detachView(holder);</span><br><span class="line">    <span class="keyword">super</span>.onViewRecycled(holder);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>大致流程如下图所示：</p>
-
+<img src="/2017/09/09/%E5%A4%9A%E5%B8%83%E5%B1%80%E7%9A%84%E8%81%8A%E5%A4%A9%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91/nestviewholder.png" class="" title="发送的信息布局">
 
 <p>这其实是非常简单的东西…但实际使用的时候发现了一个问题…当用户滑动速度非常快的时候，会出现viewholder未执行removeview就被再次显示到屏幕上了，这将会导致</p>
 <ol>
@@ -328,12 +334,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
