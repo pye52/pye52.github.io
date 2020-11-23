@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hans">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -20,16 +20,18 @@
     var CONFIG = {"hostname":"pye52.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="RefreshIndicator是Flutter用于下拉刷新的控件，但在数据需要异步请求时，则需要一些控制技巧。 场景一——FutureBuilder：1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666">
+  <meta name="description" content="RefreshIndicator是Flutter用于下拉刷新的控件，但在数据需要异步请求时，则存在一些常见的误区。 当前文章Flutter示例运行版本：1.22.4">
 <meta property="og:type" content="article">
-<meta property="og:title">
+<meta property="og:title" content="RefreshIndicator正确用法">
 <meta property="og:url" content="https://pye52.github.io/2020/11/23/RefreshIndicator%E6%AD%A3%E7%A1%AE%E7%94%A8%E6%B3%95/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="RefreshIndicator是Flutter用于下拉刷新的控件，但在数据需要异步请求时，则需要一些控制技巧。 场景一——FutureBuilder：1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666">
-<meta property="og:locale">
-<meta property="article:published_time" content="2020-11-23T09:07:14.340Z">
-<meta property="article:modified_time" content="2020-11-23T09:07:14.340Z">
+<meta property="og:description" content="RefreshIndicator是Flutter用于下拉刷新的控件，但在数据需要异步请求时，则存在一些常见的误区。 当前文章Flutter示例运行版本：1.22.4">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-23T09:10:00.000Z">
+<meta property="article:modified_time" content="2020-11-23T09:13:27.349Z">
 <meta property="article:author" content="pye52">
+<meta property="article:tag" content="flutter">
+<meta property="article:tag" content="refreshindicator">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://pye52.github.io/2020/11/23/RefreshIndicator%E6%AD%A3%E7%A1%AE%E7%94%A8%E6%B3%95/">
@@ -41,11 +43,11 @@
     sidebar: "",
     isHome : false,
     isPost : true,
-    lang   : 'zh-Hans'
+    lang   : 'zh-CN'
   };
 </script>
 
-  <title> | </title>
+  <title>RefreshIndicator正确用法 | </title>
   
 
 
@@ -85,7 +87,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="切换导航栏">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -114,12 +116,12 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
   </ul>
@@ -149,7 +151,7 @@
     
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://pye52.github.io/2020/11/23/RefreshIndicator%E6%AD%A3%E7%A1%AE%E7%94%A8%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -163,7 +165,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
+          RefreshIndicator正确用法
         </h1>
 
         <div class="post-meta">
@@ -171,9 +173,10 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="Created: 2020-11-23 17:07:14" itemprop="dateCreated datePublished" datetime="2020-11-23T17:07:14+08:00">2020-11-23</time>
+              <time title="创建时间：2020-11-23 17:10:00 / 修改时间：17:13:27" itemprop="dateCreated datePublished" datetime="2020-11-23T17:10:00+08:00">2020-11-23</time>
             </span>
 
           
@@ -187,7 +190,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><code>RefreshIndicator</code>是Flutter用于下拉刷新的控件，但在数据需要异步请求时，则需要一些控制技巧。</p>
+        <p><code>RefreshIndicator</code>是Flutter用于下拉刷新的控件，但在数据需要异步请求时，则存在一些常见的误区。</p>
+<p>当前文章Flutter示例运行版本：1.22.4</p>
+<a id="more"></a>
+
 <h4 id="场景一——FutureBuilder："><a href="#场景一——FutureBuilder：" class="headerlink" title="场景一——FutureBuilder："></a>场景一——<code>FutureBuilder</code>：</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;dart:math&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/material.dart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  runApp(MyApp());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      title: <span class="string">&#x27;Flutter Demo&#x27;</span>,</span><br><span class="line">      theme: ThemeData(</span><br><span class="line">        primarySwatch: Colors.blue,</span><br><span class="line">        visualDensity: VisualDensity.adaptivePlatformDensity,</span><br><span class="line">      ),</span><br><span class="line">      home: HomePage(),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomePage</span> <span class="keyword">extends</span> <span class="title">StatefulWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  _HomePageState createState() =&gt; _HomePageState();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_HomePageState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">HomePage</span>&gt; </span>&#123;</span><br><span class="line">  <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; _data;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(),</span><br><span class="line">      body: FutureBuilder&lt;<span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt;&gt;(</span><br><span class="line">        future: _fetchData(),</span><br><span class="line">        builder: (context, snapshot) &#123;</span><br><span class="line">          <span class="keyword">if</span> (snapshot.connectionState != ConnectionState.done) &#123;</span><br><span class="line">            <span class="keyword">return</span> Container();</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            _data = snapshot.data;</span><br><span class="line">            <span class="keyword">return</span> RefreshIndicator(</span><br><span class="line">              onRefresh: () &#123;</span><br><span class="line">                setState(() &#123;&#125;);</span><br><span class="line">                <span class="keyword">return</span> Future.value();</span><br><span class="line">              &#125;,</span><br><span class="line">              child: ListView.separated(</span><br><span class="line">                itemBuilder: (context, index) =&gt; Container(</span><br><span class="line">                  height: <span class="number">60</span>,</span><br><span class="line">                  child: Container(</span><br><span class="line">                    padding: <span class="keyword">const</span> EdgeInsets.all(<span class="number">8</span>),</span><br><span class="line">                    color: Colors.grey,</span><br><span class="line">                    child: Text(_data[index]),</span><br><span class="line">                  ),</span><br><span class="line">                ),</span><br><span class="line">                separatorBuilder: (context, index) =&gt; SizedBox(height: <span class="number">8</span>),</span><br><span class="line">                itemCount: _data.length,</span><br><span class="line">              ),</span><br><span class="line">            );</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Future&lt;<span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt;&gt; _fetchData() <span class="keyword">async</span> &#123;</span><br><span class="line">    <span class="keyword">await</span> Future.delayed(<span class="built_in">Duration</span>(seconds: <span class="number">1</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">List</span>.generate(Random().nextInt(<span class="number">20</span>), (index) =&gt; <span class="string">&quot;Test <span class="subst">$index</span>&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="场景二——直接请求："><a href="#场景二——直接请求：" class="headerlink" title="场景二——直接请求："></a>场景二——直接请求：</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;dart:math&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/material.dart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  runApp(MyApp());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      title: <span class="string">&#x27;Flutter Demo&#x27;</span>,</span><br><span class="line">      theme: ThemeData(</span><br><span class="line">        primarySwatch: Colors.blue,</span><br><span class="line">        visualDensity: VisualDensity.adaptivePlatformDensity,</span><br><span class="line">      ),</span><br><span class="line">      home: HomePage(),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomePage</span> <span class="keyword">extends</span> <span class="title">StatefulWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  _HomePageState createState() =&gt; _HomePageState();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_HomePageState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">HomePage</span>&gt; </span>&#123;</span><br><span class="line">  <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; _data;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="keyword">void</span> initState() &#123;</span><br><span class="line">    <span class="keyword">super</span>.initState();</span><br><span class="line">    _fetchData();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(),</span><br><span class="line">      body: RefreshIndicator(</span><br><span class="line">        onRefresh: () &#123;</span><br><span class="line">          _fetchData();</span><br><span class="line">          <span class="keyword">return</span> Future.value();</span><br><span class="line">        &#125;,</span><br><span class="line">        child: ListView.separated(</span><br><span class="line">          itemBuilder: (context, index) =&gt; Container(</span><br><span class="line">            height: <span class="number">60</span>,</span><br><span class="line">            child: Container(</span><br><span class="line">              padding: <span class="keyword">const</span> EdgeInsets.all(<span class="number">8</span>),</span><br><span class="line">              color: Colors.grey,</span><br><span class="line">              child: Text(_data[index]),</span><br><span class="line">            ),</span><br><span class="line">          ),</span><br><span class="line">          separatorBuilder: (context, index) =&gt; SizedBox(height: <span class="number">8</span>),</span><br><span class="line">          itemCount: _data?.length ?? <span class="number">0</span>,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> _fetchData() <span class="keyword">async</span> &#123;</span><br><span class="line">    <span class="keyword">await</span> Future.delayed(<span class="built_in">Duration</span>(seconds: <span class="number">1</span>));</span><br><span class="line">    setState(() &#123;</span><br><span class="line">      _data = <span class="built_in">List</span>.generate(Random().nextInt(<span class="number">20</span>), (index) =&gt; <span class="string">&quot;Test <span class="subst">$index</span>&quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -202,6 +208,10 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/flutter/" rel="tag"># flutter</a>
+              <a href="/tags/refreshindicator/" rel="tag"># refreshindicator</a>
+          </div>
 
         
 
@@ -262,10 +272,10 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Table of Contents
+          文章目录
         </li>
         <li class="sidebar-nav-overview">
-          Overview
+          站点概览
         </li>
       </ul>
 
@@ -288,12 +298,12 @@
           <a href="/archives/">
         
           <span class="site-state-item-count">6</span>
-          <span class="site-state-item-name">posts</span>
+          <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">9</span>
-        <span class="site-state-item-name">tags</span>
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span>
       </div>
   </nav>
 </div>
@@ -325,7 +335,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">pye52</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
 
         
