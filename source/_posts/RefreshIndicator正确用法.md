@@ -1,4 +1,17 @@
-`RefreshIndicator`是Flutter用于下拉刷新的控件，但在数据需要异步请求时，则需要一些控制技巧。
+---
+title: RefreshIndicator正确用法
+date: 2020-11-23 17:10:00
+comments: true
+tags: 
+- flutter
+- refreshindicator
+---
+
+`RefreshIndicator`是Flutter用于下拉刷新的控件，但在数据需要异步请求时，则存在一些常见的误区。
+
+当前文章Flutter示例运行版本：1.22.4
+
+<!-- more -->
 
 #### 场景一——`FutureBuilder`：
 
